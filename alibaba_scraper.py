@@ -18,8 +18,10 @@ URLS = [
     "https://www.alibaba.com/product-detail/48V-Electric-Double-Brush-Ride-On_1601445626156.html"
 ]
 
-OUTPUT_CSV = "alibaba_products.csv"
-IMAGE_DIR_ROOT = "scraped_images"
+# Output paths - where scraped data will be saved
+SCRAPER_BASE_PATH = "/Users/aba/Documents/git hub copilot version scraper"
+OUTPUT_CSV = os.path.join(SCRAPER_BASE_PATH, "alibaba_products.csv")
+IMAGE_DIR_ROOT = os.path.join(SCRAPER_BASE_PATH, "scraped_images")
 
 # --- HELPER FUNCTIONS ---
 
@@ -66,6 +68,8 @@ def run_scraper():
     print(f"Alibaba Scraper: Personal Firefox Profile")
     print(f"{'='*70}")
     
+    # Ensure base directory and image directory exist
+    create_directory(SCRAPER_BASE_PATH)
     create_directory(IMAGE_DIR_ROOT)
     scraped_data = []
 
