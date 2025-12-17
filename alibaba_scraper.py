@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 # Your Mac Chrome Profile Path
 # NOTE: You MUST Close Chrome completely before running this script.
 CHROME_USER_DATA = "/Users/aba/Library/Application Support/Google/Chrome" 
-PROFILE_NAME = "Default"  # Usually "Default" or "Profile 1"
+PROFILE_NAME = "Profile 1"  # Usually "Default" or "Profile 1"
 
 URLS = [
     "https://www.alibaba.com/product-detail/Chancee-K80-Factory-Price-Concrete-Double_1600874046823.html",
