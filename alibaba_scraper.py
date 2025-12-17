@@ -8,10 +8,9 @@ from slugify import slugify
 from playwright.sync_api import sync_playwright
 
 # --- CONFIGURATION ---
-# Your Mac Chrome Profile Path
-# NOTE: You MUST Close Chrome completely before running this script.
-CHROME_USER_DATA = "/Users/aba/Library/Application Support/Google/Chrome" 
-PROFILE_NAME = "Profile 1"  # Usually "Default" or "Profile 1"
+# Your Mac Firefox Profile Path
+# NOTE: You MUST Close Firefox completely before running this script.
+FIREFOX_PROFILE_PATH = "/Users/aba/Library/Application Support/Firefox/Profiles/b5kr8f0f.default-release"
 
 URLS = [
     "https://www.alibaba.com/product-detail/Chancee-K80-Factory-Price-Concrete-Double_1600874046823.html",
@@ -64,7 +63,7 @@ def download_image_authenticated(url, folder_path, image_name, cookies, user_age
 
 def run_scraper():
     print(f"\n{'='*70}")
-    print(f"Alibaba Scraper: Personal Chrome Profile ({PROFILE_NAME})")
+    print(f"Alibaba Scraper: Personal Firefox Profile")
     print(f"{'='*70}")
     
     create_directory(IMAGE_DIR_ROOT)
@@ -72,20 +71,18 @@ def run_scraper():
 
     with sync_playwright() as p:
         try:
-            print(f"1. Launching Chrome from: {CHROME_USER_DATA}")
-            # Launch Persistent Context (Uses your Real Chrome)
-            browser_context = p.chromium.launch_persistent_context(
-                user_data_dir=CHROME_USER_DATA,
+            print(f"1. Launching Firefox from: {FIREFOX_PROFILE_PATH}")
+            # Launch Persistent Context (Uses your Real Firefox)
+            browser_context = p.firefox.launch_persistent_context(
+                user_data_dir=FIREFOX_PROFILE_PATH,
                 headless=False,
-                channel="chrome",  # Uses actual Google Chrome app
                 viewport={'width': 1440, 'height': 900},
-                args=[f"--profile-directory={PROFILE_NAME}"],
                 # Determine executable path automatically or fallback to system default
             )
         except Exception as e:
-            print("\n❌ CRITICAL ERROR: Could not open Chrome.")
+            print("\n❌ CRITICAL ERROR: Could not open Firefox.")
             print(f"Error details: {e}")
-            print("\n⚠️  SOLUTION: Please make sure Google Chrome is CLOSED completely (Cmd+Q) before running this.")
+            print("\n⚠️  SOLUTION: Please make sure Firefox is CLOSED completely (Cmd+Q) before running this.")
             return
 
         page = browser_context.pages[0] if browser_context.pages else browser_context.new_page()
